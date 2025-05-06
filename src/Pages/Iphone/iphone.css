@@ -1,40 +1,21 @@
-Link {
-	color: #06c; 
+.internal-page-wrapper {
+  padding-top: 100px;
 }
-img {
-	max-width: 100%;
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.links-wrapper ul {
-	list-style: none;
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
 }
-.product-title {
-	font-weight: 700;
-	font-size: 56px;
+
+.bottom-50 {
+  margin-bottom: 50px;
 }
-.brief-description {
-	font-size: 2em;
-}
-.links-wrapper {
-	padding: 15px 0;
-}
-.links-wrapper ul li {
-	display: inline-block;
-	padding-right: 20px;
-}
-.links-wrapper ul li a {
-	color: #06c;
-	text-decoration: none;
-	font-size: 21px;
-}
-.links-wrapper ul li a:hover {
-	color: #000;
-}
-.links-wrapper ul li a:after {
-  font-family: "FontAwesome";
-  font-weight: 900;
-  content: "\f105";
-  padding-left: 10px;
-}
+
 .title-wraper {
   font-weight: 600;
   font-size: 30px;
@@ -42,9 +23,91 @@ img {
   letter-spacing: -0.04em;
   padding-top: 100px;
 }
+
 .title-wraper.bold {
   font-weight: 600;
   font-size: 32px;
   line-height: 1.15em;
   letter-spacing: -0.04em;
+}
+
+.brief-description {
+  font-size: 2em;
+  margin-bottom: 1rem;
+}
+
+.starting-price,
+.monthly-price {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.links-wrapper {
+  padding: 15px 0;
+}
+
+.links-wrapper ul {
+  list-style: none;
+  padding: 0;
+}
+
+.links-wrapper ul li {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.links-wrapper ul li a {
+  color: #06c;
+  text-decoration: none;
+  font-size: 21px;
+}
+
+.links-wrapper ul li a:hover {
+  color: #000;
+}
+
+.links-wrapper ul li a:after {
+  font-family: "FontAwesome";
+  font-weight: 900;
+  content: "\f105";
+  padding-left: 10px;
+}
+
+.product-image {
+  text-align: center;
+}
+
+.product-image img {
+  max-width: 100px;
+  max-height: 100px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  visibility: visible;
+  opacity: 1;
+}
+
+.order-1, .order-2 {
+  display: block !important;
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  .order-1, .order-2 {
+    order: 0 !important;
+  }
+  .product-image img {
+    max-width: 200px;
+    max-height: 100px;
+  }
+  .title-wraper {
+    font-size: 24px;
+    padding-top: 50px;
+  }
+  .brief-description {
+    font-size: 1.5em;
+  }
 }

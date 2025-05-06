@@ -1,75 +1,74 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Four04 from "../Four04/Four04";
+import React, { useState, useEffect } from 'react';
 
 const ProductPage = () => {
-  const { pid } = useParams();
-  const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products/iphone")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch products");
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/iphone');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
         }
-        return res.json();
-      })
-      .then((data) => {
-        const found = data.products.find((x) => {
-          const slug = x.Product_url.split("/").filter(Boolean).pop();
-          return slug === pid;
-        });
-        if (found) {
-          setProduct(found);
-        } else {
-          setError("Product not found");
-        }
-      })
-      .catch((err) => {
-        console.error("Fetch error:", err);
-        setError("Error fetching product data");
-      });
-  }, [pid]);
+        const data = await response.json();
+        setProducts(data.products);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
 
-  if (error || !product) {
-    return <Four04 />;
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
 
-  const {
-    Product_name,
-    Product_brief_description,
-    Product_description,
-    Product_img,
-    Starting_price,
-    Price_range,
-  } = product;
+  if (error) {
+    return <div className="flex justify-center items-center h-screen text-red-500">Error: {error}</div>;
+  }
 
   return (
-    <section className="internal-page-wrapper top-100">
-      <div className="container">
-        <div className="row justify-content-center text-center bottom-50">
-          <div className="col-12 pt-4">
-            <div className="title-wraper bold">{Product_name}</div>
-            <div className="brief-description">{Product_brief_description}</div>
-          </div>
-        </div>
-
-        <div className="row justify-content-center text-center product-holder h-100">
-          <div className="col-sm-12 col-md-6 my-auto">
-            <div className="product-title">{Product_name}</div>
-            <div className="product-description">{Product_description}</div>
-            <div className="starting-price">{`Starting at ${Starting_price}`}</div>
-            <div className="monthly-price">{Price_range}</div>
-          </div>
-          <div className="col-sm-12 col-md-6">
-            <div className="product-image pt-5">
-              <img src={Product_img} alt={Product_name} />
+    <div className="bg-gray-100 min-h-screen">
+      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">iPhone</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product) => (
+            <div
+              key={product.Product_id}
+              className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105"
+            >
+              <img
+                src={product.Product_img || 'https://via.placeholder.com/300'}
+                alt={product.Product_name}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+                  {product.Product_name}
+                </h2>
+                <p className="text-gray-600 mb-4">
+                  {product.Product_brief_description}
+                </p>
+                <p className="text-lg font-medium text-gray-900 mb-4">
+                  From {product.Starting_price}
+                </p>
+                <a
+                  href={product.Product_link || '#'}
+                  className="inline-block bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
