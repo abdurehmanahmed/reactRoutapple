@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import "./Common-resource/css/styles.css"
-import Sections from "./Components/AllSections/Sections"
+import "./Common-resource/css/styles.css";
+import Sections from "./Components/AllSections/Sections";
 import Mac from "./Pages/Mac/Mac.jsx";
 import Iphone from "./Pages/Iphone/Iphone.jsx";
 import Ipad from "./Pages/Ipad/Ipad.jsx";
@@ -12,19 +12,17 @@ import Cart from "./Pages/Cart/Cart.jsx";
 import Search from "./Pages/Search/Search.jsx";
 import Four04 from "./Pages/Four04/Four04.jsx";
 import Layout from "./Components/Layout/Layout.jsx";
-import ProductPage from "./Pages/ProductPage/ProductPage.jsx";
+import SingleAppleProduct from "./Pages/SingleAppleProduct/SingleAppleProduct.jsx";
 
 function App() {
-  
-
   return (
     <>
-       <Routes>
+      <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Sections />} />
           <Route path="mac" element={<Mac />} />
           <Route path="iphone" element={<Iphone />} />
-          <Route path="iphone/:pid" element={<ProductPage />} />
+          <Route path="iphone/:pid" element={<SingleAppleProduct />} />
           <Route path="ipad" element={<Ipad />} />
           <Route path="watch" element={<Watch />} />
           <Route path="tv" element={<TV />} />
@@ -35,9 +33,8 @@ function App() {
           <Route path="*" element={<Four04 />} />
         </Route>
       </Routes>
-     
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -17,22 +17,21 @@ const Iphone = () => {
       <div className="container">
         {products.map((product, index) => {
           const {
+            Product_id,
             Product_name,
             Product_brief_description,
             Product_img,
             Starting_price,
             Price_range,
-            Product_url,
           } = product;
 
-          const slug = Product_url.split("/").filter(Boolean).pop();
           const order1 = index % 2 === 0 ? 2 : 1;
           const order2 = index % 2 === 0 ? 1 : 2;
 
           return (
             <div
               className="row justify-content-center text-center bottom-50"
-              key={slug}
+              key={Product_id}
             >
               <div className={`col-12 col-md-6 p5-5 order-${order1}`}>
                 <div className="title-wraper bold">{Product_name}</div>
@@ -44,7 +43,7 @@ const Iphone = () => {
                 <div className="links-wrapper">
                   <ul>
                     <li>
-                      <Link to={`/iphone/${slug}`}>Learn more</Link>
+                      <Link to={`/iphone/${Product_id}`}>Learn more</Link>
                     </li>
                   </ul>
                 </div>
